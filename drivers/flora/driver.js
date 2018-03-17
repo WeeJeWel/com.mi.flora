@@ -73,7 +73,7 @@ class FloraDriver extends Homey.Driver {
 		let advertisement = this._advertisements[advertisementAddress];
 		if( !advertisement ) throw new Error('Invalid Device Address');
 		
-		let disconnect;
+		let disconnect = function(){};
 		
 		return advertisement.connect()
 			.then( peripheral => {
