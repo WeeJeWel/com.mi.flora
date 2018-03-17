@@ -80,7 +80,11 @@ class FloraDriver extends Homey.Driver {
 				
 				disconnect = () => {
 					process.nextTick(() => {
-						peripheral.disconnect(() => {})
+						try {
+							peripheral.disconnect(() => {})
+						} catch( err ) {
+							this.error( err );
+						}
 					})
 				}
 				
