@@ -2,9 +2,11 @@
 
 const Homey = require('homey');
 
-const SCAN_INTERVAL = 1000 * 60 * 5; // 5 min
+const SCAN_INTERVAL = 1000 * 60 * 1; // 1 min
 const DATA_SERVICE_UUID = '0000120400001000800000805f9b34fb';
 const DATA_CHARACTERISTIC_UUID = '00001a0100001000800000805f9b34fb';
+const REALTIME_CHARACTERISTIC_UUID = '00001a0000001000800000805f9b34fb';
+const REALTIME_META_VALUE = Buffer.from([0xA0, 0x1F]);
 
 class FloraDriver extends Homey.Driver {
 	
@@ -91,11 +93,27 @@ class FloraDriver extends Homey.Driver {
 				return dataService.discoverCharacteristics();
 			})
 			.then( characteristics => {
+				
+				let dataCharacteristic;
+				
 				for( let i = 0; i < characteristics.length; i++ ) {
-					let characteristic = characteristics[i];
-					if( characteristic.uuid === DATA_CHARACTERISTIC_UUID ) return characteristic;
+					let characteristic = characteristics[i];					
+					if( characteristic.uuid === DATA_CHARACTERISTIC_UUID )
+						dataCharacteristic = characteristic;
 				}
-				throw new Error('Missing data characteristic');
+				
+				// for this to work, we must first enable realtime data
+				for( let i = 0; i < characteristics.length; i++ ) {
+					let characteristic = characteristics[i];						
+					if( characteristic.uuid === REALTIME_CHARACTERISTIC_UUID )
+						return characteristic.write(REALTIME_META_VALUE).then(() => {
+							if( !dataCharacteristic )
+								throw new Error('Missing data characteristic');
+								
+							return dataCharacteristic;
+						})
+				}
+				throw new Error('Missing data & realtime characteristic');
 			})
 			.then( characteristic => {
 				return characteristic.read();

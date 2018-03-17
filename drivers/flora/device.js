@@ -28,11 +28,9 @@ class FloraDevice extends Homey.Device {
 		this.setAvailable();
 	}
 	
-	_poll() {
+	_poll() {		
 		this._driver.getFloraDeviceData( this._address )
-			.then(({ temperature, luminance, moisture, fertility }) => {
-				console.log('data', temperature, luminance, moisture, fertility);
-				
+			.then(({ temperature, luminance, moisture, fertility }) => {				
 				return Promise.all([
 					this.setCapabilityValue('measure_temperature', temperature),
 					this.setCapabilityValue('measure_luminance', luminance),

@@ -58,7 +58,8 @@
       "type": "number",
       "decimals": 2,
       "title": {
-        "en": "Fertility"
+        "en": "Fertility",
+        "nl": "Vruchtbaarheid"
       },
       "units": {
         "en": "µS/cm"
@@ -70,7 +71,8 @@
       "type": "number",
       "decimals": 2,
       "title": {
-        "en": "Moisture"
+        "en": "Moisture",
+        "nl": "Vochtigheid"
       },
       "units": {
         "en": "%"
