@@ -1,0 +1,82 @@
+{
+  "id": "com.mi.flora",
+  "version": "1.0.0",
+  "compatibility": ">=1.5.0",
+  "sdk": 2,
+  "name": {
+    "en": "Mi Flora"
+  },
+  "description": {
+    "en": "Adds support for Xiaomi Mi Flora Plant Sensor."
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Emile Nijssen",
+    "email": "emile@athom.nl"
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Mi Flora Plant Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_luminance",
+        "flora_measure_moisture",
+        "flora_measure_fertility"
+      ],
+      "images": {
+        "large": "/drivers/flora/assets/images/large.png",
+        "small": "/drivers/flora/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "flora"
+    }
+  ],
+  "capabilities": {
+    "flora_measure_fertility": {
+      "type": "number",
+      "decimals": 2,
+      "title": {
+        "en": "Fertility"
+      },
+      "units": {
+        "en": "µS/cm"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "flora_measure_moisture": {
+      "type": "number",
+      "decimals": 2,
+      "title": {
+        "en": "Moisture"
+      },
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": false
+    }
+  }
+}

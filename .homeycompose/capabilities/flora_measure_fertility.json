@@ -1,0 +1,12 @@
+{
+	"type": "number",
+	"decimals": 2,
+	"title": {
+		"en": "Fertility"
+	},
+	"units": {
+		"en": "µS/cm"
+	},
+	"getable": true,
+	"setable": false
+}

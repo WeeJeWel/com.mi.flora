@@ -1,0 +1,12 @@
+{
+	"type": "number",
+	"decimals": 2,
+	"title": {
+		"en": "Moisture"
+	},
+	"units": {
+		"en": "%"
+	},
+	"getable": true,
+	"setable": false
+}

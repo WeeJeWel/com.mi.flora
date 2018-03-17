@@ -1,0 +1,29 @@
+{
+  "name": {
+    "en": "Mi Flora Plant Sensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_luminance",
+    "flora_measure_moisture",
+    "flora_measure_fertility"
+  ],
+  "images": {
+    "large": "/drivers/flora/assets/images/large.png",
+    "small": "/drivers/flora/assets/images/small.png"
+  },
+  "pair": [
+	{
+	  "id": "list_devices",
+	  "template": "list_devices",
+	  "navigation": {
+		"next": "add_devices"
+	  }
+	},
+	{
+      "id": "add_devices",
+      "template": "add_devices"
+	}
+  ]
+}

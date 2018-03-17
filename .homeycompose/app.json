@@ -1,0 +1,24 @@
+{
+  "id": "com.mi.flora",
+  "version": "1.0.0",
+  "compatibility": ">=1.5.0",
+  "sdk": 2,
+  "name": {
+    "en": "Mi Flora"
+  },
+  "description": {
+    "en": "Adds support for Xiaomi Mi Flora Plant Sensor."
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Emile Nijssen",
+    "email": "emile@athom.nl"
+  }
+}
