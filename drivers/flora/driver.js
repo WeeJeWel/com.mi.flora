@@ -65,6 +65,10 @@ class FloraDriver extends Homey.Driver {
 		
 	}
 	
+	getFloraAdvertisement( advertisementAddress ) {
+		return this._advertisements[advertisementAddress];
+	}
+	
 	async getFloraDeviceData( advertisementAddress ) {
 		let advertisement = this._advertisements[advertisementAddress];
 		if( !advertisement ) throw new Error('Invalid Device Address');
