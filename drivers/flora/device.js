@@ -36,10 +36,11 @@ class FloraDevice extends Homey.Device {
 	
 	_poll() {		
 		this._driver.getFloraDeviceData( this._address )
-			.then(({ temperature, luminance, moisture, fertility }) => {
-				this.log('Got readings', { temperature, luminance, moisture, fertility })
+			.then(({ temperature, luminance, moisture, fertility, batteryLevel, firmwareVersion }) => {
+				this.log('Got readings', { temperature, luminance, moisture, fertility, batteryLevel, firmwareVersion })
 					
 				return Promise.all([
+					this.setCapabilityValue('measure_battery', batteryLevel),
 					this.setCapabilityValue('measure_temperature', temperature),
 					this.setCapabilityValue('measure_luminance', luminance),
 					this.setCapabilityValue('flora_measure_moisture', moisture),

@@ -6,6 +6,7 @@ const SCAN_INTERVAL = 1000 * 60 * 1; // 1 min
 const DATA_SERVICE_UUID = '0000120400001000800000805f9b34fb';
 const DATA_CHARACTERISTIC_UUID = '00001a0100001000800000805f9b34fb';
 const REALTIME_CHARACTERISTIC_UUID = '00001a0000001000800000805f9b34fb';
+const FIRMWARE_CHARACTERISTIC_UUID = '00001a0200001000800000805f9b34fb';
 const REALTIME_META_VALUE = Buffer.from([0xA0, 0x1F]);
 
 class FloraDriver extends Homey.Driver {
@@ -103,11 +104,14 @@ class FloraDriver extends Homey.Driver {
 			.then( characteristics => {
 				
 				let dataCharacteristic;
+				let firmwareCharacteristic;
 				
 				for( let i = 0; i < characteristics.length; i++ ) {
 					let characteristic = characteristics[i];					
 					if( characteristic.uuid === DATA_CHARACTERISTIC_UUID )
 						dataCharacteristic = characteristic;
+					else if( characteristic.uuid === FIRMWARE_CHARACTERISTIC_UUID )
+						firmwareCharacteristic = characteristic;
 				}
 				
 				// for this to work, we must first enable realtime data
@@ -117,20 +121,25 @@ class FloraDriver extends Homey.Driver {
 						return characteristic.write(REALTIME_META_VALUE).then(() => {
 							if( !dataCharacteristic )
 								throw new Error('Missing data characteristic');
-								
-							return dataCharacteristic;
+							if( !firmwareCharacteristic )
+								throw new Error('Missing firmware characteristic');
+
+							return [dataCharacteristic, firmwareCharacteristic];
 						})
 				}
 				throw new Error('Missing data & realtime characteristic');
 			})
 			.then( characteristic => {
-				return characteristic.read();
+				return Promise.all([characteristic[0].read(), characteristic[1].read()]);
 			})
 			.then( data => {
-				let temperature = data.readUInt16LE(0) / 10;
-				let luminance = data.readUInt32LE(3);
-				let moisture = data.readUInt16BE(6);
-				let fertility = data.readUInt16LE(8);
+
+				let temperature = data[0].readUInt16LE(0) / 10;
+				let luminance = data[0].readUInt32LE(3);
+				let moisture = data[0].readUInt16BE(6);
+				let fertility = data[0].readUInt16LE(8);
+				let batteryLevel = parseInt(data[1].toString('hex', 0, 1), 16);
+				let firmwareVersion = data[1].toString('ascii', 2, data[1].length);
 				
 				disconnect();
 				
@@ -139,6 +148,8 @@ class FloraDriver extends Homey.Driver {
 					luminance,
 					moisture,
 					fertility,
+					batteryLevel,
+					firmwareVersion,
 				}
 			})
 			.catch( err => {
