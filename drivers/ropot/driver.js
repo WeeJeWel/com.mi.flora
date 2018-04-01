@@ -6,8 +6,8 @@ const FloraDriver = require('../../lib/FloraDriver.js');
 class FloraDriverStick extends FloraDriver {
 	
 	onInit() {
-		this.setLocalName('Flower care');
-		this.setVisibleName('Mi Flora Sensor');
+		this.setLocalName('ropot');
+		this.setVisibleName('Mi Flora Ropot');
 		Homey.app.registerLocalName( this._localName );
 	}
 	
