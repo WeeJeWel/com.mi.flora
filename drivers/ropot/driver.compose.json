@@ -4,6 +4,7 @@
   },
   "class": "sensor",
   "capabilities": [
+    "measure_battery",
     "measure_temperature",
     "flora_measure_moisture",
     "flora_measure_fertility"
