@@ -8,6 +8,7 @@
 	"units": {
 		"en": "%"
 	},
+	"insights": true,
 	"getable": true,
 	"setable": false
 }

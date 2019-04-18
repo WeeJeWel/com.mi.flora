@@ -95,6 +95,7 @@
       "units": {
         "en": "µS/cm"
       },
+      "insights": true,
       "getable": true,
       "setable": false
     },
@@ -108,6 +109,7 @@
       "units": {
         "en": "%"
       },
+      "insights": true,
       "getable": true,
       "setable": false
     }
