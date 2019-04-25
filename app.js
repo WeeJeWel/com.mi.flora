@@ -75,6 +75,7 @@ class FloraApp extends Homey.App {
       this.log('advertisement.connect()');
       const peripheral = await advertisement.connect();    
       const cleanup = () => {
+        this.log('cleanup()');
         delete this._getFloraDeviceDataPromises[advertisementAddress];
         peripheral.disconnect().catch(err => {
           this.error('Disconnect error:', err);
